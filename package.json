@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "turbo": "^2.2.3",
     "typescript": "^5.6.3"
   }
 }

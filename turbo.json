@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "cache": true,
+      "outputs": [
+        "user-client/android/**",
+        "user-client/ios/**",
+        "user-client/dist/**",
+        "venue-client/.next/**",
+        "server/dist/**"
+      ]
+    },
+    "lint": {
+      "cache": true
+    },
+    "test": {
+      "cache": true
+    }
+  }
+}
