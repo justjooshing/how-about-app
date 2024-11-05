@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+enum REDEMPTION_STATUS {
+  REDEEMED
+  ACTIVE
+  EXPIRED
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id                  Int      @id @default(autoincrement())
+  marketing_opt_in    Boolean  @default(false)
+  last_login          DateTime @db.Timestamptz(0)
+  email_verified_date DateTime @default(now()) @db.Timestamptz(0)
+  created_date        DateTime @default(now()) @db.Timestamptz(0)
+  first_name          String
+  last_name           String
+  //  Copied from Temp_Users
+  terms_agreed_date   DateTime @db.Timestamptz(0)
+  email               String   @unique
+
+  // Relations
+  User_Sessions            User_Sessions?
+  Google_Refresh_Tokens    Google_Refresh_Tokens?
+  Email_Verification_Codes Email_Verification_Codes?
+  Deal_Vouchers            Deal_Vouchers?
+}
+
+model Temp_Users {
+  id                Int      @id @default(autoincrement())
+  email             String   @unique
+  terms_agreed_date DateTime @db.Timestamptz(0)
+  expires_at        DateTime @db.Timestamptz(0)
+  verification_code String   @unique
+}
+
+model User_Sessions {
+  id         Int      @id @default(autoincrement())
+  expires_at DateTime @db.Timestamptz(0)
+  token      String   @unique
+
+  // Relations
+  user    Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int   @unique
+}
+
+model Google_Refresh_Tokens {
+  id            Int @id @default(autoincrement())
+  refresh_token Int @unique
+
+  // Relations
+  user       Users  @relation(fields: [user_email], references: [email], onDelete: Cascade)
+  user_email String @unique
+}
+
+model Email_Verification_Codes {
+  id         Int      @id @default(autoincrement())
+  code       Int      @unique
+  expires_at DateTime @db.Timestamptz(0)
+
+  // Relations
+  user    Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int   @unique
+}
+
+model Deal_Vouchers {
+  id              Int               @id @default(autoincrement())
+  created_date    DateTime          @db.Timestamptz(0)
+  redemption_code Int               @unique
+  deal_id         String
+  status          REDEMPTION_STATUS @default(ACTIVE)
+  redeemed_at     DateTime?         @db.Timestamptz(0)
+
+  // Relations
+  user    Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id Int   @unique
+}
