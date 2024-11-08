@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { ContentfulService } from './contentful/contentful.service';
+import { ContentfulModule } from '../../third-party/contentful/contentful.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true })],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), ContentfulModule],
   controllers: [AppController],
-  providers: [AppService, ContentfulService],
+  providers: [AppService],
 })
 export class AppModule {}

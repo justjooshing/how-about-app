@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as contentful from 'contentful-management';
-import { ContentfulService } from './contentful/contentful.service';
+import { ContentfulService } from '../../third-party/contentful/contentful.service';
 
 @Injectable()
 export class AppService {
