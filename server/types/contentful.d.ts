@@ -25,11 +25,11 @@ export interface IAddressFields {
   /** Address Code */
   address_code?: string | undefined;
 
-  /** Related Business/Venue */
-  related_business_venue: (IBusiness | IVenue)[];
-
   /** Country */
   country?: string | undefined;
+
+  /** Related Business/Venue */
+  related_business_venue: (IBusiness | IVenue)[];
 }
 
 /** Address, possibly shared across Business and Venue */
@@ -123,6 +123,9 @@ export interface IDealFields {
 
   /** Banner Images */
   banner_images: Asset[];
+
+  /** Owner Venue */
+  owner: IVenue[];
 }
 
 /** Deals that are being promoted by a venue or group of venues */
@@ -159,6 +162,9 @@ export interface IVenueFields {
 
   /** Owned Deals */
   owned_deals?: IDeal[] | undefined;
+
+  /** Owner Business */
+  owner?: IBusiness | undefined;
 }
 
 /** Venues are locations that are owned by a business and will create deals */
