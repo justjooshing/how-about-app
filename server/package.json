@@ -21,7 +21,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:update": "npx prisma migrate dev"
+    "db:update": "npx prisma migrate dev",
+    "contentful-typescript-codegen": "contentful-typescript-codegen --output @types/contentful.d.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -45,6 +46,8 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "contentful-typescript-codegen": "^3.4.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

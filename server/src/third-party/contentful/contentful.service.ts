@@ -13,7 +13,7 @@ export class ContentfulService {
         type: 'plain',
         defaults: {
           spaceId: process.env.CONTENTFUL_SPACE_ID,
-          environmentId: 'master',
+          environmentId: process.env.CONTENTFUL_ENVIRONMENT,
         },
       },
     );
