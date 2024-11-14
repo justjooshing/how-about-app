@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@contentful/rich-text-react-renderer':
+    specifier: ^16.0.0
+    version: 16.0.0(react-dom@18.2.0)(react@18.2.0)
   '@expo/vector-icons':
     specifier: ^14.0.2
     version: 14.0.2
@@ -1695,6 +1698,25 @@ packages:
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
+
+  /@contentful/rich-text-react-renderer@16.0.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-0jVuTe9f+DvQjNfhta7zYYUwtRBPz01nS2kS1CzGSi/EjAy9CFFQ+M0G1OHAzNNvFyAtDs5/4rndHuVzsedV5g==}
+    engines: {node: '>=6.0.0'}
+    peerDependencies:
+      react: ^16.8.6 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.6 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@contentful/rich-text-types': 17.0.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@contentful/rich-text-types@17.0.0:
+    resolution: {integrity: sha512-x50t6sILzFHBdFpAo0foJRnH8fHWyidheWhAv3uwt9aOnNqTh893gxyoc3Q0RVEZxXfHpTi+O9gmakHcdlRdTA==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      is-plain-obj: 3.0.0
+    dev: false
 
   /@egjs/hammerjs@2.0.17:
     resolution: {integrity: sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==}
@@ -5735,6 +5757,11 @@ packages:
   /is-path-inside@3.0.3:
     resolution: {integrity: sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==}
     engines: {node: '>=8'}
+    dev: false
+
+  /is-plain-obj@3.0.0:
+    resolution: {integrity: sha512-gwsOE28k+23GP1B6vFl1oVh/WOzmawBrKwo5Ev6wMKzPkaXaCDIQKzLnvsA42DRlbVTWorkgTKIviAKCWkfUwA==}
+    engines: {node: '>=10'}
     dev: false
 
   /is-plain-object@2.0.4:
