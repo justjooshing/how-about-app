@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ContentfulService } from '../../third-party/contentful/contentful.service';
+import { ContentfulDeliveryService } from 'src/third-party/contentful-delivery/contentful-delivery.service';
 
 @Injectable()
 export class AppService {
-  constructor(private readonly contentfulService: ContentfulService) {}
+  constructor(private readonly contentfulService: ContentfulDeliveryService) {}
 
   async getContentTypes(): Promise<string[]> {
     try {

@@ -2,10 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { ContentfulModule } from '../../third-party/contentful/contentful.module';
+import { DealsModule } from '../deals/deals.module';
+import { ContentfulDeliveryModule } from 'src/third-party/contentful-delivery/contentful-delivery.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), ContentfulModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    ContentfulDeliveryModule,
+    DealsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
