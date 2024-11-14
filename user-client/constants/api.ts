@@ -5,4 +5,7 @@ const platformUrl = Platform.select({
   default: "localhost",
 });
 
-export const base_url = `http://${platformUrl}:3000`;
+export const base_url =
+  process.env.NODE_ENV === "development"
+    ? `http://${platformUrl}:3000`
+    : process.env.SERVER_URL;
