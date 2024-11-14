@@ -48,7 +48,8 @@ To run the server locally, create a `.env` file in the `server` directory with t
 DATABASE_URL=your_database_url
 CONTENTFUL_SPACE_ID=the_contentful_space_id
 CONTENTFUL_ENVIRONMENT=the_contentful_environment
-CONTENTFUL_CMA_TOKEN=your_contentful_content_management_access_token
+CONTENTFUL_ACCESS_TOKEN=your_contentful_access_token
+CONTENTFUL_CMA_TOKEN=your_contentful_content_management_access_token //only if generating types
 ```
 
 ### User Client and Venue Client
