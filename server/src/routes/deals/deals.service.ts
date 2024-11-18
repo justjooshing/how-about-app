@@ -3,7 +3,7 @@ import type { TypeDealFields } from '@/types/generated/index';
 import { Injectable } from '@nestjs/common';
 import { ContentfulDeliveryService } from 'src/third-party/contentful-delivery/contentful-delivery.service';
 
-const cleanDeals = (fields: TypeDealFields): ApiDeal => {
+const cleanDeals = (fields: TypeDealFields): ApiDeal['fields'] => {
   return {
     ...fields,
     tags: fields.tags || [],
@@ -32,9 +32,7 @@ const cleanDeals = (fields: TypeDealFields): ApiDeal => {
 export class DealsService {
   constructor(private readonly contentfulService: ContentfulDeliveryService) {}
 
-  async getAllDeals(): Promise<{
-    deals: ApiDeals | null;
-  }> {
+  async getAllDeals(): Promise<ApiDeals | []> {
     try {
       const response = await this.contentfulService.getContentfulEntries({
         content_type: 'deal',
@@ -42,14 +40,28 @@ export class DealsService {
         field: 'title',
         field_name: 'Burgers and Pints for Two People',
       });
-      const cleanedDeals = response.items.map((item) =>
+
+      if (!response.items.length) return [];
+
+      const cleanedDeals = response.items.map((item) => ({
+        id: item.sys.id,
         // @ts-expect-error thinks title is Symbol<string>
-        cleanDeals(item.fields),
-      );
-      return { deals: cleanedDeals };
+        fields: cleanDeals(item.fields),
+      }));
+
+      return cleanedDeals;
     } catch (err) {
       console.error('ERROR', err);
     }
     return null;
   }
+
+  // async getSingleDeal(): Promise<ApiDeal> {
+  //   const deal = await this.contentfulService.getContentfulEntries({
+  //     content_type: 'deal',
+  //     limit: 1,
+  //     field: 'title',
+  //   });
+  //   return {};
+  // }
 }
