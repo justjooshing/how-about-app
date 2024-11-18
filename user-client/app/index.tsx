@@ -1,7 +1,15 @@
 import { base_url } from "@/constants/api";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { Link } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function Index() {
   const [data, setData] = useState();
@@ -23,10 +31,14 @@ export default function Index() {
 
   if (!data) return <Text>Loading</Text>;
   if (!data.length) return <Text>No data</Text>;
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {data?.map(({ id, fields }) => (
         <View style={styles.deal} key={id}>
+          <Link style={styles.link} href={`/deals/${id}`}>
+            <Text>View Deal</Text>
+          </Link>
           <Image source={{ uri: fields.owner.logo, height: 50, width: 50 }} />
           <View style={styles.images}>
             {fields.banner_images.map((url) => (
@@ -39,23 +51,7 @@ export default function Index() {
           </View>
           <Text>What: {fields.title}</Text>
           <Text>Where: {fields.owner.name}</Text>
-          <Text>
-            Description: {documentToReactComponents(fields.description)}
-            <View>
-              {fields.owned_deal_options.map((option, index) => (
-                <View key={option.name} style={styles.option}>
-                  <Text>Deal Option Name: {option.name}</Text>
-                  <Text>Deal Option OG Price: {option.original_price}</Text>
-                  <Text>
-                    Deal Option Discounted Price: {option.discounted_price}
-                  </Text>
-                  <Text>
-                    Deal Option Total Available: {option.total_available}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          </Text>
+
           <Text>People: {fields.pax}</Text>
           <View style={styles.tags}>
             <Text>Tags: </Text>
@@ -70,18 +66,6 @@ export default function Index() {
               0,
             )}
           </Text>
-          <Text>
-            Sale dates {new Date(fields.sale_start_date).toDateString()} -{" "}
-            {new Date(fields.sale_end_date).toDateString()}
-          </Text>
-          <Text>
-            Redemption dates {new Date(fields.redeem_start_date).toDateString()}{" "}
-            - {new Date(fields.redeem_end_date).toDateString()}
-          </Text>
-          <Text>
-            Redemption Contitions:{" "}
-            {documentToReactComponents(fields.redemption_conditions)}
-          </Text>
         </View>
       ))}
     </ScrollView>
@@ -92,6 +76,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+  },
+  link: {
+    backgroundColor: "lightgrey",
+    padding: 8,
+    borderRadius: 10,
   },
   deal: {
     justifyContent: "center",
