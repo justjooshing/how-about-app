@@ -1,10 +1,13 @@
 name: Fly Deploy
 on:
+  workflow_dispatch: # allows manual triggering of the workflow
   push:
     branches:
-      - master # change to main if needed
+      - master
+    paths:
+      - "server/**" # only on changes in /server
 env:
-  FLY_API_TOKEN: ${{ secrets.FLY_DEPLOY_API_TOKEN }}
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
   deploy:
     name: Deploy app
@@ -14,3 +17,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
+        working-directory: server # checks for fly.toml in /server
