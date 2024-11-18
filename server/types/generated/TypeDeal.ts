@@ -5,6 +5,7 @@ import type {
   EntrySkeletonType,
   LocaleCode,
 } from 'contentful';
+import type { TypeDeal_optionsSkeleton } from './TypeDeal_options';
 import type { TypeVenueSkeleton } from './TypeVenue';
 
 /**
@@ -36,20 +37,6 @@ export interface TypeDealFields {
    */
   currency: EntryFieldTypes.Symbol<'AUD' | 'EUR' | 'GBP' | 'NZD'>;
   /**
-   * Field type definition for field 'original_price' (Original Price)
-   * @name Original Price
-   * @localized false
-   * @summary Original price (without deal)
-   */
-  original_price: EntryFieldTypes.Number;
-  /**
-   * Field type definition for field 'discounted_price' (Discounted Price)
-   * @name Discounted Price
-   * @localized false
-   * @summary Current price (with deal)
-   */
-  discounted_price: EntryFieldTypes.Number;
-  /**
    * Field type definition for field 'redemption_conditions' (Redemption Conditions)
    * @name Redemption Conditions
    * @localized false
@@ -72,13 +59,6 @@ export interface TypeDealFields {
   tags?: EntryFieldTypes.Array<
     EntryFieldTypes.Symbol<'Healthy' | 'Popular' | 'Vegan'>
   >;
-  /**
-   * Field type definition for field 'total_available' (Total Available)
-   * @name Total Available
-   * @localized false
-   * @summary Total number of deals available to sell
-   */
-  total_available?: EntryFieldTypes.Integer;
   /**
    * Field type definition for field 'sale_start_date' (Sale Start Date)
    * @name Sale Start Date
@@ -121,6 +101,15 @@ export interface TypeDealFields {
    * @summary Venue/s that will be promoting this deal
    */
   owner: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeVenueSkeleton>>;
+  /**
+   * Field type definition for field 'owned_deal_options' (Owned Deal Options)
+   * @name Owned Deal Options
+   * @localized false
+   * @summary The deal options available for this deal
+   */
+  owned_deal_options: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<TypeDeal_optionsSkeleton>
+  >;
 }
 
 /**
@@ -129,7 +118,7 @@ export interface TypeDealFields {
  * @type {TypeDealSkeleton}
  * @author 6NZiusLBA8mEyLQBqPMMjV
  * @since 2024-11-04T06:27:35.513Z
- * @version 21
+ * @version 27
  */
 export type TypeDealSkeleton = EntrySkeletonType<TypeDealFields, 'deal'>;
 /**
@@ -138,7 +127,7 @@ export type TypeDealSkeleton = EntrySkeletonType<TypeDealFields, 'deal'>;
  * @type {TypeDeal}
  * @author 6NZiusLBA8mEyLQBqPMMjV
  * @since 2024-11-04T06:27:35.513Z
- * @version 21
+ * @version 27
  */
 export type TypeDeal<
   Modifiers extends ChainModifiers,

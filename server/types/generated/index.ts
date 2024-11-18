@@ -10,6 +10,11 @@ export type {
 } from './TypeBusiness';
 export type { TypeDeal, TypeDealFields, TypeDealSkeleton } from './TypeDeal';
 export type {
+  TypeDeal_options,
+  TypeDeal_optionsFields,
+  TypeDeal_optionsSkeleton,
+} from './TypeDeal_options';
+export type {
   TypeVenue,
   TypeVenueFields,
   TypeVenueSkeleton,
