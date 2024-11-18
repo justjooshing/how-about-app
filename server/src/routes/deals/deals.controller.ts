@@ -1,13 +1,20 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { DealsService } from './deals.service';
-import { ApiDeals } from '@/types/api/deals';
+import { ApiDeal, ApiDeals } from '@/types/api/deals';
 
 @Controller('deals')
 export class DealsController {
   constructor(private readonly dealsService: DealsService) {}
 
   @Get('all')
-  async getResponse(): Promise<ApiDeals | []> {
+  async getAllDeals(): Promise<ApiDeals | []> {
     return this.dealsService.getAllDeals();
+  }
+
+  @Get(':dealId')
+  async getSingleDeal(
+    @Param() params: { dealId: string },
+  ): Promise<ApiDeal | undefined> {
+    return this.dealsService.getSingleDeal(params.dealId);
   }
 }

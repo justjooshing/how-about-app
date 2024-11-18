@@ -1,6 +1,10 @@
 import { ApiDeal, ApiDeals } from '@/types/api/deals';
-import type { TypeDealFields } from '@/types/generated/index';
-import { Injectable } from '@nestjs/common';
+import type { TypeDealFields, TypeDealSkeleton } from '@/types/generated/index';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { ContentfulDeliveryService } from 'src/third-party/contentful-delivery/contentful-delivery.service';
 
 const cleanDeals = (fields: TypeDealFields): ApiDeal['fields'] => {
@@ -51,17 +55,25 @@ export class DealsService {
 
       return cleanedDeals;
     } catch (err) {
-      console.error('ERROR', err);
+      throw new InternalServerErrorException('Something has gone wrong');
     }
     return null;
   }
 
-  // async getSingleDeal(): Promise<ApiDeal> {
-  //   const deal = await this.contentfulService.getContentfulEntries({
-  //     content_type: 'deal',
-  //     limit: 1,
-  //     field: 'title',
-  //   });
-  //   return {};
-  // }
+  async getSingleDeal(dealId: string): Promise<ApiDeal> {
+    try {
+      const response =
+        await this.contentfulService.getContentfulEntry<TypeDealSkeleton>(
+          dealId,
+        );
+      if (!response) console.log(response);
+      // @ts-expect-error thinks title is Symbol<string>
+      return { id: response.sys.id, fields: cleanDeals(response.fields) };
+    } catch (err) {
+      if (err.id === 'NotFound') {
+        throw new NotFoundException(`Deal with id ${dealId} not found`);
+      }
+      throw new InternalServerErrorException('Something has gone wrong');
+    }
+  }
 }

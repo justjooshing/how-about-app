@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import type { CONTENT_TYPE } from '@/types/contentful.d';
-import { createClient, EntryCollection } from 'contentful';
+import { createClient, EntryCollection, EntrySkeletonType } from 'contentful';
 import { ContentTypeSkeletonsMap, TargetQueryProps } from './types';
 import { targetQuery } from './helpers';
 
@@ -28,6 +28,10 @@ export class ContentfulDeliveryService {
       console.error('Error fetching content types:', error);
       throw error;
     }
+  }
+
+  async getContentfulEntry<T extends EntrySkeletonType>(entryId: string) {
+    return this.client.getEntry<T>(entryId);
   }
 
   async getContentfulEntries<T extends CONTENT_TYPE>(
