@@ -1,5 +1,5 @@
 import { base_url } from "@/constants/api";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { ApiDeals } from "@/shared/types/deals";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 export default function Index() {
-  const [data, setData] = useState();
+  const [data, setData] = useState<ApiDeals>();
 
   useEffect(() => {
     (async () => {

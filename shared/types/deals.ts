@@ -1,12 +1,13 @@
-import { TypeDealFields } from "@server/types/generated";
+import { TypeDealSkeleton } from "@/server/types/generated";
 
 export interface ApiDeal {
   id: string;
   fields: Omit<
-    TypeDealFields,
-    "owned_deal_options" | "owner" | "tags" | "banner_images"
+    TypeDealSkeleton,
+    "title" | "owned_deal_options" | "owner" | "tags" | "banner_images"
   > & {
-    tags: TypeDealFields["tags"] | [];
+    title: TypeDealSkeleton["fields"]["title"]["values"];
+    tags: TypeDealSkeleton["fields"]["tags"]["item"]["values"][];
     banner_images: string[];
     owner: {
       name: string;
@@ -17,7 +18,7 @@ export interface ApiDeal {
       discounted_price: number;
       name: string;
       total_available: number;
-    };
+    }[];
   };
 }
 

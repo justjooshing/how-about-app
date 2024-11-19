@@ -1,4 +1,5 @@
-import { CONTENT_TYPE, TargetQueryProps } from './types';
+import { CONTENT_TYPE } from '@/server/types/contentful';
+import { TargetQueryProps } from './types';
 
 export const targetQuery = <T extends CONTENT_TYPE>({
   field,

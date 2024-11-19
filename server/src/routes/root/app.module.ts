@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DealsModule } from '../deals/deals.module';
-import { ContentfulDeliveryModule } from 'src/third-party/contentful-delivery/contentful-delivery.module';
+import { ContentfulDeliveryModule } from '@/server/src/third-party/contentful-delivery/contentful-delivery.module';
 
 @Module({
   imports: [

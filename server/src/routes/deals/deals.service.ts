@@ -1,24 +1,25 @@
 import { ApiDeal, ApiDeals } from '@/shared/types/deals';
-import type { TypeDealFields, TypeDealSkeleton } from '@/types/generated/index';
+import type { TypeDealSkeleton } from '@/server/types/generated/index';
 import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { ContentfulDeliveryService } from 'src/third-party/contentful-delivery/contentful-delivery.service';
+import { ContentfulDeliveryService } from '@/server/src/third-party/contentful-delivery/contentful-delivery.service';
 
-const cleanDeals = (fields: TypeDealFields): ApiDeal['fields'] => {
+const cleanDeals = (fields: TypeDealSkeleton['fields']): ApiDeal['fields'] => {
   return {
     ...fields,
-    tags: fields.tags || [],
-    // total_available: fields.total_available || null,
-    // @ts-expect-error cannot map banner_images
+    title: fields.title.values.toString(),
+    // @ts-expect-error error
+    tags: fields.tags['item']['values'],
+    // @ts-expect-error error
     banner_images: fields.banner_images.map((image) => image.fields.file.url),
     owner: {
       name: fields.owner[0].fields.name,
       logo: fields.owner[0].fields.logo.fields.file.url,
     },
-    // @ts-expect-error cannot map owned_deal_options
+    // @ts-expect-error error
     owned_deal_options: fields.owned_deal_options.map(
       ({
         fields: { original_price, discounted_price, name, total_available },
@@ -49,7 +50,7 @@ export class DealsService {
 
       const cleanedDeals = response.items.map((item) => ({
         id: item.sys.id,
-        // @ts-expect-error thinks title is Symbol<string>
+        // @ts-expect-error error
         fields: cleanDeals(item.fields),
       }));
 
@@ -57,7 +58,6 @@ export class DealsService {
     } catch (err) {
       throw new InternalServerErrorException('Something has gone wrong');
     }
-    return null;
   }
 
   async getSingleDeal(dealId: string): Promise<ApiDeal> {
@@ -67,7 +67,7 @@ export class DealsService {
           dealId,
         );
       if (!response) console.log(response);
-      // @ts-expect-error thinks title is Symbol<string>
+      // @ts-expect-error error
       return { id: response.sys.id, fields: cleanDeals(response.fields) };
     } catch (err) {
       if (err.id === 'NotFound') {

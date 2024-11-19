@@ -1,12 +1,9 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@server/*": ["../server/*"]
-    }
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
   },
-  "include": [
-    "**/*.ts",
-    "../server/types/generated/**/*"
-  ]
+  "include": ["types/**/*"]
 }

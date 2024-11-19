@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import type { CONTENT_TYPE } from '@/types/contentful.d';
 import { createClient, EntryCollection, EntrySkeletonType } from 'contentful';
 import { ContentTypeSkeletonsMap, TargetQueryProps } from './types';
 import { targetQuery } from './helpers';
+import { CONTENT_TYPE } from '@/server/types/contentful';
 
 @Injectable()
 export class ContentfulDeliveryService {

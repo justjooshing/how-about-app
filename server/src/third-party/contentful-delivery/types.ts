@@ -7,8 +7,8 @@ import type {
   TypeDealSkeleton,
   TypeVenueSkeleton,
   TypeAddressSkeleton,
-} from '@/types/generated/index';
-import type { CONTENT_TYPE } from '@/types/contentful.d';
+} from '@/server/types/generated/index';
+import type { CONTENT_TYPE } from '@/server/types/contentful.d';
 
 export type ContentTypeSkeletonsMap = {
   business: TypeBusinessSkeleton;
@@ -27,7 +27,6 @@ export type ContentTypeFieldsMap = {
 type ContentTypeFieldsKey<T extends CONTENT_TYPE> =
   keyof ContentTypeFieldsMap[T];
 
-export type { CONTENT_TYPE } from '@/types/contentful.d';
 export interface TargetQueryProps<T extends CONTENT_TYPE> {
   content_type: T;
   limit?: number;

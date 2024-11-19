@@ -1,4 +1,5 @@
 import { base_url } from "@/constants/api";
+import { ApiDeal } from "@/shared/types/deals";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Link, useLocalSearchParams } from "expo-router";
 import { useState, useEffect } from "react";
@@ -7,7 +8,7 @@ import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
 export default function Deal() {
   const { dealId } = useLocalSearchParams();
 
-  const [data, setData] = useState();
+  const [data, setData] = useState<ApiDeal>();
 
   useEffect(() => {
     (async () => {
