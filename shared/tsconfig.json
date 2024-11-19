@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@server/*": ["../server/*"]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "../server/types/generated/**/*"
+  ]
+}

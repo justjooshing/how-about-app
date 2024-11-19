@@ -1,12 +1,12 @@
-import { TypeDealFields } from '../generated';
+import { TypeDealFields } from "@server/types/generated";
 
 export interface ApiDeal {
   id: string;
   fields: Omit<
     TypeDealFields,
-    'owned_deal_options' | 'owner' | 'tags' | 'banner_images'
+    "owned_deal_options" | "owner" | "tags" | "banner_images"
   > & {
-    tags: TypeDealFields['tags'] | [];
+    tags: TypeDealFields["tags"] | [];
     banner_images: string[];
     owner: {
       name: string;

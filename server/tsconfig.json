@@ -21,6 +21,9 @@
       "@/shared/*": ["../shared/*"],
       "@/types/*": ["./types/*"]
     }
-  }
-  
+  },
+  "include": [
+    "**/*.ts",
+    "../shared/types/**/*"
+  ]
 }

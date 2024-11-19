@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { DealsService } from './deals.service';
-import { ApiDeal, ApiDeals } from '@/types/api/deals';
+import { ApiDeal, ApiDeals } from '@/shared/types/deals';
 
 @Controller('deals')
 export class DealsController {

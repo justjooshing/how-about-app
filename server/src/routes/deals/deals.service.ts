@@ -1,4 +1,4 @@
-import { ApiDeal, ApiDeals } from '@/types/api/deals';
+import { ApiDeal, ApiDeals } from '@/shared/types/deals';
 import type { TypeDealFields, TypeDealSkeleton } from '@/types/generated/index';
 import {
   Injectable,
