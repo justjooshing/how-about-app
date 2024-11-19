@@ -16,7 +16,6 @@ ENV NODE_ENV="production"
 ARG PNPM_VERSION=8.6.3
 RUN npm install -g pnpm@$PNPM_VERSION
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
@@ -29,17 +28,21 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --prod=false
 
 # Copy application code
-COPY . .
+COPY ../ .
 
 # Build application
-RUN pnpm run build
+RUN pnpm --filter server build
 
+# Debugging step: list the contents of /app/server to ensure dist exists
+RUN ls -l /app
+RUN ls -l /app/server
 
 # Final stage for app image
 FROM base
 
 # Copy built application
-COPY --from=build /app /app
+WORKDIR /app/server
+COPY --from=build /app/server/dist ./dist
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
