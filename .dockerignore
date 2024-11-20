@@ -1,3 +1,10 @@
+# unused directories
+/venue-client
+/user-client
+
+# Exclude all node_modules across the project
+**/node_modules/
+
 # compiled output
 /dist
 /node_modules

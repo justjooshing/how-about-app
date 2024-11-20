@@ -2,7 +2,7 @@
 
 # Adjust NODE_VERSION as desired
 ARG NODE_VERSION=22.4.1
-FROM node:${NODE_VERSION}-slim as base
+FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="NestJS"
 
@@ -17,33 +17,29 @@ ARG PNPM_VERSION=8.6.3
 RUN npm install -g pnpm@$PNPM_VERSION
 
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
-# Install node modules
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod=false
+# Copy only required directories and files
+COPY . .
 
-# Copy application code
-COPY ../ .
+# Install deps in all workspaces
+RUN pnpm install -r --frozen-lockfile --prod=false
 
 # Build application
 RUN pnpm --filter server build
 
-# Debugging step: list the contents of /app/server to ensure dist exists
-RUN ls -l /app
-RUN ls -l /app/server
-
 # Final stage for app image
-FROM base
+FROM base AS final
 
 # Copy built application
-WORKDIR /app/server
-COPY --from=build /app/server/dist ./dist
+COPY --from=build /app/server/dist /app/server/dist
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "pnpm", "run", "start" ]
+
+# Default command to start the server
+CMD ["node", "/app/server/dist/main.js"]
