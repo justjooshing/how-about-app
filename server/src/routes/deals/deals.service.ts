@@ -43,9 +43,6 @@ export class DealsService {
       const response =
         await this.contentfulService.getContentfulEntries<'deal'>({
           content_type: 'deal',
-          limit: 1,
-          field: 'title',
-          field_name: 'Burgers and Pints for Two People',
         });
 
       if (!response.items.length) return [];
