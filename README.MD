@@ -39,7 +39,7 @@ You'll also need to have been granted access to the Fly.io workspace and the Con
   cd how-about-app
 ```
 
-2. Install Dependencies: Run `pnpm -r install` in the root directory to install dependencies for all projects.
+2. Install Dependencies: Run `pnpm i`, and then `pnpm --filter <dir-name> i` for each of the directories, in the root directory to install dependencies for all projects.
 
 ### Environment Variables
 
