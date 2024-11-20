@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "server/**" # only on changes in /server or /shared
-      - "shared/**"
+    paths-ignore:
+      - "user-client/**" # Don't rebuilt when only client changes
+      - "venue-client/**"
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 jobs:
