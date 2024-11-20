@@ -13,7 +13,7 @@ WORKDIR /app
 ENV NODE_ENV="production"
 
 # Install pnpm for package management
-ARG PNPM_VERSION=8.6.3
+ARG PNPM_VERSION=9.14.1
 RUN npm install -g pnpm@$PNPM_VERSION
 
 # Build Stage: to install dependencies and build the app
